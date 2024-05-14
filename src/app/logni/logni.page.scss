@@ -1,0 +1,65 @@
+.heading{
+    font-size: 32px;
+    font-weight: bold;
+}
+.para{
+    font-size: 22px;
+    font-weight: 500;
+    color: #ecf3fc;
+}
+
+.login-button{
+    height: 150px;
+    --border-radius: 12px;
+    --box-shadow: none;
+    --border-width: 2px;
+    --border-style: solid;
+    --border-color: black;
+}
+.google-button{
+    height: 50px;
+    --border-radius: 12px;
+    --box-shadow: none;
+}
+.signup-text{
+    a{
+        text-decoration: none;
+        color: var(--ion-color-warning);
+    }
+    text-align: center;
+}
+
+ion-footer {
+    display: block;
+    // position: relative;
+    -ms-flex-order: 1;
+    order: 1;
+    width: 100%;
+    z-index: 10;
+}
+.copyright{
+    text-align: center;
+} 
+
+.iconEye {
+    font-size: 26px;
+}
+
+.icon-button{
+    --ripple-color: #ffffff;
+}
+
+.full-width{
+    width: 100%;
+}
+
+// 
+ion-item {
+    background: transparent;
+    --highlight-height: 2px;
+    --highlight-color-focused: #51f3ff;
+    --highlight-color-valid: #ffffff;
+    --highlight-color-invalid: #efe866;
+    --border-color: #ffffff;
+    --border-size : 2px;
+  }

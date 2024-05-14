@@ -1,0 +1,127 @@
+<ng-container *ngIf="!signingOut;else spinner">
+  <ion-content class="content-with-full-height" id="main-content" [color]="selectedTilesSet === 1 ? 'medium' : 'primary'">
+    <ng-container *ngIf="orientationType === 'portrait-primary'; else landscapeTemplate">
+      <ion-fab #fab1 slot="fixed" vertical="top" horizontal="start" (click)="fabClicked(0)">
+        <ion-fab-button class="header">
+          <div>
+            <ion-img [src]="lenguajes[selectedLanguageIndex].banderaImagen"></ion-img>
+          </div>
+        </ion-fab-button>
+        <ion-fab-list side="bottom">
+          <ion-fab-button *ngFor="let lenguaje of lenguajes;let i = index" 
+            (click)="selectedLanguageIndex = i" 
+            [class]="i === 0 ? 'mt-5 header' : 'header'">
+            <div>
+              <ion-img [src]="selectedLanguageIndex === i ? lenguaje.imagenSeleccionada : lenguaje.banderaImagen"></ion-img>
+            </div>
+          </ion-fab-button>
+        </ion-fab-list>
+      </ion-fab>
+      <ion-fab #fab2 slot="fixed" vertical="top" horizontal="end" (click)="fabClicked(1)">
+        <ion-fab-button class="header">
+          <div>
+            <ion-img [src]="sets[selectedTilesSet].imagen"></ion-img>
+          </div>
+        </ion-fab-button>
+        <ion-fab-list side="bottom">
+          <ion-fab-button *ngFor="let set of sets;let i = index" 
+            (click)="selectedTilesSet = i" 
+            [class]="i === 0 ? 'mt-5 header' : 'header'">
+            <div>
+              <ion-img [src]="selectedTilesSet === i ? set.imagenSeleccionada : set.imagen"></ion-img>
+            </div>
+          </ion-fab-button>
+        </ion-fab-list>
+      </ion-fab>
+      <hr class="rounded big-margin">
+      <div [class]="fabsActivated[0] === true || fabsActivated[1] === true ? 'px-2 pb-2 low-opacity' : 'px-2 pb-2'">
+        <mat-grid-list class="grid-layout-custom px-2 pb-2" cols="2" rowHeight="1:1" gutterSize="2%">
+          <ng-container *ngFor="let tile of tiles[selectedTilesSet]; let i = index">
+            <mat-grid-tile 
+              (click)="tileClicked(i)" 
+              class="selectable mat-grid-tile-rounded" 
+              [style.background]="'url(' + tile.image + ') center'" 
+              [style.background-size]="'cover'" 
+              [style]="'--background-color:white; background-blend-mode: revert-layer; border-radius: 10%;'">
+            </mat-grid-tile>
+          </ng-container>
+        </mat-grid-list>
+      </div>
+      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="handleSingOut()" color="warning">
+          <ion-icon name="exit-outline" size="large"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ng-container>
+  </ion-content>
+</ng-container>
+
+<ng-template #spinner>
+  <ion-content>
+    <app-spinner [optionalMessage]="'Cerrando Sesión'"></app-spinner>
+  </ion-content>
+</ng-template>
+
+<ng-template #landscapeTemplate>
+  <ion-fab #fab1 slot="fixed" vertical="top" horizontal="start" (click)="fabClicked(0)">
+    <ion-fab-button [class]="fabsActivated[0] ? 'header-landscape-minimized' : 'header-landscape'">
+      <div>
+        <ion-img [src]="lenguajes[selectedLanguageIndex].banderaImagen"></ion-img>
+      </div>
+    </ion-fab-button>
+    <ion-fab-list side="end">
+      <ion-fab-button *ngFor="let lenguaje of lenguajes;let i = index" 
+        (click)="selectedLanguageIndex = i" 
+        [class]="'header-landscape'">
+        <div>
+          <ion-img [src]="selectedLanguageIndex === i ? lenguaje.imagenSeleccionada : lenguaje.banderaImagen"></ion-img>
+        </div>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-fab #fab2 slot="fixed" vertical="bottom" horizontal="start" (click)="fabClicked(1)">
+    <ion-fab-button [class]="fabsActivated[1] ? 'header-landscape-minimized' : 'header-landscape'">
+      <div>
+        <ion-img [src]="sets[selectedTilesSet].imagen"></ion-img>
+      </div>
+    </ion-fab-button>
+    <ion-fab-list side="end">
+      <ion-fab-button *ngFor="let set of sets;let i = index" 
+        (click)="selectedTilesSet = i" 
+        [class]="'header-landscape'">
+        <div>
+          <ion-img [src]="selectedTilesSet === i ? set.imagenSeleccionada : set.imagen"></ion-img>
+        </div>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <div class="filler-img-container"> 
+          <ion-img src="../assets/icon/tabla_didactica_icon.png"></ion-img>
+        </div>
+      </ion-col>
+      <ion-col size="8" offset="1">
+        <div [class]="fabsActivated[0] === true || fabsActivated[1] === true ? 'px-2 pb-2 low-opacity ion-padding-bottom' : 'px-2 pb-2 ion-padding-bottom'">
+          <mat-grid-list class="grid-layout-custom px-2 pb-2" cols="3" rowHeight="1:1" gutterSize="2%">
+            <ng-container *ngFor="let tile of tiles[selectedTilesSet]; let i = index">
+              <mat-grid-tile 
+                (click)="tileClicked(i)" 
+                class="selectable mat-grid-tile-rounded" 
+                [style.background]="'url(' + tile.image + ') center'" 
+                [style.background-size]="'cover'" 
+                [style]="'--background-color:white; background-blend-mode: revert-layer; border-radius: 10%;'">
+              </mat-grid-tile>
+            </ng-container>
+          </mat-grid-list>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="handleSingOut()" color="warning">
+      <ion-icon name="exit-outline" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ng-template>
